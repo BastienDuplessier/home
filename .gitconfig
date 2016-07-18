@@ -1,0 +1,7 @@
+[user]
+	name = Bastien Duplessier
+	email = bastien.duplessier@gmail.com
+[color]
+	ui = true
+[core]
+	editor = emacs
