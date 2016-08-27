@@ -1,0 +1,53 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/zangther/prog/erlang_cooking/" . "src/")
+ ("/home/zangther/prog/" . "erlang_cooking/")
+ ("/home/" . "zangther/")
+ ("/sudo:root@localhost:/" . "/")
+ ("/home/zangther/.config/" . "fish/")
+ ("/home/zangther/" . ".config/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/zangther/.config/fish/"
+ "/home/zangther/prog/erlang_cooking/src/"
+ "/home/zangther/prog/"
+ "/home/zangther/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "config.fish"
+ "restaurant.erl"
+ "humans.erl"
+ "erlang_cooking_sup.erl"
+ "Release.key"
+ ".emacs"
+ "server.erl"
+ "cook.erl"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/zangther/.config/fish/" (22429 19380 719070 0) "functions/" "./" "../" "config.fish" "fishd.debian")
+
+ ("/home/zangther/.rebar3/" (22429 19232 545020 0) "LICENSE" "CONTRIBUTING.md" "src/" "rebar.lock" "bootstrap.bat" ".git/" "rebar.config.sample" ".travis.yml" "rebar3" "test/" "THANKS" "pr2relnotes.sh" "README.md" "_build/" "./" "../" "rebar.config" "bootstrap" "i" "priv/" ".gitignore")
+
+ ("/home/zangther/.config/" (22428 31347 263011 0) "user-dirs.dirs" "dconf/" "xfce4/" "xfce4-session/" "autostart/" "pulse/" "user-dirs.locale" "gtk-2.0/" "Thunar/" "./" "../" "terminator/" "fish/")
+
+ ("/home/zangther/" (22429 19304 192825 999000) "Bureau/" ".erl/" ".emacs_backups/" "Musique/" ".vboxclient-seamless.pid" ".haxelib" ".emacs.d/" ".xsession-errors" ".cache/" "Modèles/" ".ssh/" ".xfce4-session.verbose-log.last" ".smex-items" ".xsel.log" ".vboxclient-display.pid" ".gnome2_private/" "Public/" ".bashrc" ".ICEauthority" ".xsession-errors.old" ".profile" ".rbenv/" ".vboxclient-clipboard.pid" "Images/" ".dmrc" ".gconf/" ".gitconfig" ".xfce4-session.verbose-log" ".mozilla/" ".local/" "Documents/" "./" ".Xauthority" ".vboxclient-draganddrop.pid" "prog/" "../" ".bash_logout" ".gnome2/" ".emacs" ".rebar3/" ".kerl/" "home/" ".bash_history" "Vidéos/" ".dbus/" ".gnupg/" "Téléchargements/" ".config/")
+
+ ("/home/zangther/prog/erlang_cooking/src/" (22429 16064 672023 0) "erlang_cooking.app.src" "erlang_cooking_app.erl" "cook.erl" "erlang_cooking_sup.erl" "./" "../" "server.erl")
+
+ ("/home/zangther/prog/" (22428 31000 535011 0) "./" "../" "Release.key" "erlang_cooking/")
+
+ ("/home/zangther/prog/erlang_cooking/" (22428 31003 139011 0) "LICENSE" "src/" "rebar.lock" ".git/" "old_src/" "README.md" "./" "../" "rebar.config" ".gitignore")
+
+ ("/home/" (22422 33868 449620 0) "zangther/" "./" "../")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
