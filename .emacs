@@ -11,35 +11,10 @@
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
-
-;; Package manager (el-get)
-;; So the idea is that you copy/paste this code into your *scratch* buffer,
-;; hit C-j, and you have a working el-get.
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
 (package-initialize)
 
 ;; Set backup directory
 (setq backup-directory-alist `(("." . "~/.emacs_backups")))
-
-;; Copy to clipboard support (no need on Emacs GUI)
-;; (defun yank-to-x-clipboard ()
-;;   (interactive)
-;;   (if (region-active-p)
-;;         (progn
-;; 	    (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-;; 	      (message "Yanked region to clipboard!")
-;; 	        (deactivate-mark))
-;;     (message "No region active; can't yank to clipboard!")))
-;; (global-set-key (kbd "C-c C-v") 'yank-to-x-clipboard)
 
 ;; Font size
 (set-face-attribute 'default nil :height 100)
@@ -72,6 +47,7 @@
 (ido-everywhere 1)
 (flx-ido-mode 1)
 (ido-better-flex/enable)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
 ;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
