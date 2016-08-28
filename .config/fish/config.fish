@@ -22,8 +22,8 @@ set PATH $PATH ~/.rbenv/bin
 # Use Haxe
 set PATH $PATH /usr/lib/haxe
 
-# Use Kerl (Erlang Version Manager)
-set PATH $PATH ~/.kerl
+# Use Erlang
+set PATH $PATH /usr/bin/kerl
 set PATH $PATH ~/.rebar3
 
 # Don't use Vim
