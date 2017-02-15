@@ -1,3 +1,6 @@
+# Switch Caps Lock & Left Ctrl
+setxkbmap -option ctrl:swapcaps
+
 # Aliases
 alias em='emacs -nw'
 alias la='ls -la'
