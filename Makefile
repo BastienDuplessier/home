@@ -1,12 +1,12 @@
 .DEFAULT_GOAL := help
-.PHONY: fish yay alacritty emacs all help
+.PHONY: fish yay alacritty emacs i3 all help
 
 ## Colors
 COLOR_RESET = \033[0m
 COLOR_INFO = \033[32m
 COLOR_COMMENT = \033[33m
 
-all: fish yay alacritty emacs
+all: fish yay alacritty emacs i3
 
 ## yay install
 yay:
@@ -36,6 +36,9 @@ emacs:
 	@echo 'Copying emacs/configuration to ~/.emacs.id'
 	@cp -r emacs/configuration  ~/.emacs.do
 
+## i3 config
+i3:
+	@echo 'Copying i3/config to ~/.i3'
 	@cp emacs/.emacs ~/.emacs
 	@cp -r emacs/configuration  ~/.emacs.do
 
