@@ -13,6 +13,7 @@ fish:
 	@echo 'Installing or updating fish & starship'
 	@yay -S --noconfirm fish starship
 	@echo 'Copying fish/config.fish to ~/.config/fish'
+	@mkdir -p ~/.config/fish
 	@cp fish/config.fish ~/.config/fish
 
 ## alacritty install & config
@@ -20,6 +21,7 @@ alacritty:
 	@echo 'Installing or updating alacritty'
 	@yay -S --noconfirm alacritty
 	@echo 'Copying alacritty/alacritty.yml to ~/.config/alacritty'
+	@mkdir -p ~/.config/alacritty
 	@cp -f alacritty/alacritty.yml ~/.config/alacritty
 
 ## emacs install
@@ -29,16 +31,19 @@ emacs:
 	@echo 'Copying emacs/.emacs into ~/.emacs'
 	@cp emacs/.emacs ~/.emacs
 	@echo 'Copying emacs/configuration to ~/.emacs.id'
+	@mkdir -p ~/.emacs.d
 	@cp -r emacs/configuration  ~/.emacs.d
 
 ## i3 config
 i3:
 	@echo 'Copying i3/config to ~/.i3'
+	@mkdir -p ~/.i3
 	@cp -f i3/config ~/.i3
 
 ## Firefox
 firefox:
-	@echo 'Copying i3/config to ~/.i3'
+	@echo 'Install Firefox'
+	@yay -S --noconfirm firefox
 
 ## List available commands
 help:
