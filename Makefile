@@ -1,17 +1,12 @@
 .DEFAULT_GOAL := help
-.PHONY: fish yay alacritty emacs i3 firefox all help
+.PHONY: fish alacritty emacs i3 firefox all help
 
 ## Colors
 COLOR_RESET = \033[0m
 COLOR_INFO = \033[32m
 COLOR_COMMENT = \033[33m
 
-all: fish yay alacritty emacs i3 firefox
-
-## yay install
-yay:
-	@echo 'Installing or updating yay'
-	@pacman -S --noconfirm --needed git base-devel yay
+all: fish alacritty emacs i3 firefox
 
 # fish & starship (prompt) install & config
 fish:
