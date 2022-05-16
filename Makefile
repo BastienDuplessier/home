@@ -1,12 +1,12 @@
 .DEFAULT_GOAL := help
-.PHONY: fish yay alacritty emacs i3 all help
+.PHONY: fish yay alacritty emacs i3 firefox all help
 
 ## Colors
 COLOR_RESET = \033[0m
 COLOR_INFO = \033[32m
 COLOR_COMMENT = \033[33m
 
-all: fish yay alacritty emacs i3
+all: fish yay alacritty emacs i3 firefox
 
 ## yay install
 yay:
@@ -40,6 +40,10 @@ emacs:
 i3:
 	@echo 'Copying i3/config to ~/.i3'
 	@cp -f i3/config ~/.i3
+
+## Firefox
+firefox:
+	@echo 'Copying i3/config to ~/.i3'
 
 ## List available commands
 help:
