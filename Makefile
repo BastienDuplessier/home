@@ -25,7 +25,7 @@ alacritty:
 	@echo 'Installing or updating alacritty'
 	@yay -S --noconfirm alacritty
 	@echo 'Copying alacritty/alacritty.yml to ~/.config/alacritty'
-	@cp alacritty/alacritty.yml ~/.config/alacritty
+	@cp -f alacritty/alacritty.yml ~/.config/alacritty
 
 ## emacs install
 emacs:
@@ -34,13 +34,12 @@ emacs:
 	@echo 'Copying emacs/.emacs into ~/.emacs'
 	@cp emacs/.emacs ~/.emacs
 	@echo 'Copying emacs/configuration to ~/.emacs.id'
-	@cp -r emacs/configuration  ~/.emacs.do
+	@cp -r emacs/configuration  ~/.emacs.d
 
 ## i3 config
 i3:
 	@echo 'Copying i3/config to ~/.i3'
-	@cp emacs/.emacs ~/.emacs
-	@cp -r emacs/configuration  ~/.emacs.do
+	@cp -f i3/config ~/.i3
 
 ## List available commands
 help:
