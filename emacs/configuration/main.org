@@ -1,0 +1,328 @@
+#+SETUPFILE: "~/.emacs.d/configuration.org"
+#+TITLE: Emacs Configuration
+#+LANGUAGE: en
+
+
+* Packages configuration
+** Setup package archives
+#+begin_src emacs-lisp
+  (require 'package) ;; You might already have this line
+  (add-to-list 'package-archives
+               '("elpa" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
+  (package-initialize)
+#+end_src
+
+** Install use-package
+#+begin_src emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+#+end_src
+
+
+* Theme & UI
+** Zerodark theme
+#+begin_src emacs-lisp
+  (use-package zerodark-theme
+    :ensure t
+    :config
+    (load-theme 'zerodark t)
+    (zerodark-setup-modeline-format))
+#+end_src
+** Font
+#+begin_src emacs-lisp
+  (set-frame-font "Fira Mono")
+  (add-to-list 'default-frame-alist '(font . "Fira Mono"))
+  ;; This works when using emacs --daemon + emacsclient
+  (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
+  ;; This works when using emacs without server/client
+  (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
+#+end_src
+** Ligatures
+Checkout https://github.com/mickeynp/ligature.el when in MELPA
+#+begin_src emacs-lisp
+  (defconst fira-code-font-lock-keywords-alist
+    (mapcar (lambda (regex-char-pair)
+              `(,(car regex-char-pair)
+                (0 (prog1 ()
+                     (compose-region (match-beginning 1)
+                                     (match-end 1)
+                                     ;; The first argument to concat is a string containing a literal tab
+                                     ,(concat "	" (list (decode-char 'ucs (cadr regex-char-pair)))))))))
+            '(("\\(www\\)"                   #Xe100)
+              ("[^/]\\(\\*\\*\\)[^/]"        #Xe101)
+              ("\\(\\*\\*\\*\\)"             #Xe102)
+              ("\\(\\*\\*/\\)"               #Xe103)
+              ("\\(\\*>\\)"                  #Xe104)
+              ("[^*]\\(\\*/\\)"              #Xe105)
+              ("\\(\\\\\\\\\\)"              #Xe106)
+              ("\\(\\\\\\\\\\\\\\)"          #Xe107)
+              ("\\({-\\)"                    #Xe108)
+              ("\\(\\[\\]\\)"                #Xe109)
+              ("\\(::\\)"                    #Xe10a)
+              ("\\(:::\\)"                   #Xe10b)
+              ("[^=]\\(:=\\)"                #Xe10c)
+              ("\\(!!\\)"                    #Xe10d)
+              ("\\(!=\\)"                    #Xe10e)
+              ("\\(!==\\)"                   #Xe10f)
+              ("\\(-}\\)"                    #Xe110)
+              ("\\(--\\)"                    #Xe111)
+              ("\\(---\\)"                   #Xe112)
+              ("\\(-->\\)"                   #Xe113)
+              ("[^-]\\(->\\)"                #Xe114)
+              ("\\(->>\\)"                   #Xe115)
+              ("\\(-<\\)"                    #Xe116)
+              ("\\(-<<\\)"                   #Xe117)
+              ("\\(-~\\)"                    #Xe118)
+              ("\\(#{\\)"                    #Xe119)
+              ("\\(#\\[\\)"                  #Xe11a)
+              ("\\(##\\)"                    #Xe11b)
+              ("\\(###\\)"                   #Xe11c)
+              ("\\(####\\)"                  #Xe11d)
+              ("\\(#(\\)"                    #Xe11e)
+              ("\\(#\\?\\)"                  #Xe11f)
+              ("\\(#_\\)"                    #Xe120)
+              ("\\(#_(\\)"                   #Xe121)
+              ("\\(\\.-\\)"                  #Xe122)
+              ("\\(\\.=\\)"                  #Xe123)
+              ("\\(\\.\\.\\)"                #Xe124)
+              ("\\(\\.\\.<\\)"               #Xe125)
+              ("\\(\\.\\.\\.\\)"             #Xe126)
+              ("\\(\\?=\\)"                  #Xe127)
+              ("\\(\\?\\?\\)"                #Xe128)
+              ("\\(;;\\)"                    #Xe129)
+              ("\\(/\\*\\)"                  #Xe12a)
+              ("\\(/\\*\\*\\)"               #Xe12b)
+              ("\\(/=\\)"                    #Xe12c)
+              ("\\(/==\\)"                   #Xe12d)
+              ("\\(/>\\)"                    #Xe12e)
+              ("\\(//\\)"                    #Xe12f)
+              ("\\(///\\)"                   #Xe130)
+              ("\\(&&\\)"                    #Xe131)
+              ("\\(||\\)"                    #Xe132)
+              ("\\(||=\\)"                   #Xe133)
+              ("[^|]\\(|=\\)"                #Xe134)
+              ("\\(|>\\)"                    #Xe135)
+              ("\\(\\^=\\)"                  #Xe136)
+              ("\\(\\$>\\)"                  #Xe137)
+              ("\\(\\+\\+\\)"                #Xe138)
+              ("\\(\\+\\+\\+\\)"             #Xe139)
+              ("\\(\\+>\\)"                  #Xe13a)
+              ("\\(=:=\\)"                   #Xe13b)
+              ("[^!/]\\(==\\)[^>]"           #Xe13c)
+              ("\\(===\\)"                   #Xe13d)
+              ("\\(==>\\)"                   #Xe13e)
+              ("[^=]\\(=>\\)"                #Xe13f)
+              ("\\(=>>\\)"                   #Xe140)
+              ("\\(<=\\)"                    #Xe141)
+              ("\\(=<<\\)"                   #Xe142)
+              ("\\(=/=\\)"                   #Xe143)
+              ("\\(>-\\)"                    #Xe144)
+              ("\\(>=\\)"                    #Xe145)
+              ("\\(>=>\\)"                   #Xe146)
+              ("[^-=]\\(>>\\)"               #Xe147)
+              ("\\(>>-\\)"                   #Xe148)
+              ("\\(>>=\\)"                   #Xe149)
+              ("\\(>>>\\)"                   #Xe14a)
+              ("\\(<\\*\\)"                  #Xe14b)
+              ("\\(<\\*>\\)"                 #Xe14c)
+              ("\\(<|\\)"                    #Xe14d)
+              ("\\(<|>\\)"                   #Xe14e)
+              ("\\(<\\$\\)"                  #Xe14f)
+              ("\\(<\\$>\\)"                 #Xe150)
+              ("\\(<!--\\)"                  #Xe151)
+              ("\\(<-\\)"                    #Xe152)
+              ("\\(<--\\)"                   #Xe153)
+              ("\\(<->\\)"                   #Xe154)
+              ("\\(<\\+\\)"                  #Xe155)
+              ("\\(<\\+>\\)"                 #Xe156)
+              ("\\(<=\\)"                    #Xe157)
+              ("\\(<==\\)"                   #Xe158)
+              ("\\(<=>\\)"                   #Xe159)
+              ("\\(<=<\\)"                   #Xe15a)
+              ("\\(<>\\)"                    #Xe15b)
+              ("[^-=]\\(<<\\)"               #Xe15c)
+              ("\\(<<-\\)"                   #Xe15d)
+              ("\\(<<=\\)"                   #Xe15e)
+              ("\\(<<<\\)"                   #Xe15f)
+              ("\\(<~\\)"                    #Xe160)
+              ("\\(<~~\\)"                   #Xe161)
+              ("\\(</\\)"                    #Xe162)
+              ("\\(</>\\)"                   #Xe163)
+              ("\\(~@\\)"                    #Xe164)
+              ("\\(~-\\)"                    #Xe165)
+              ("\\(~=\\)"                    #Xe166)
+              ("\\(~>\\)"                    #Xe167)
+              ("[^<]\\(~~\\)"                #Xe168)
+              ("\\(~~>\\)"                   #Xe169)
+              ("\\(%%\\)"                    #Xe16a)
+              ("[^:=]\\(:\\)[^:=]"           #Xe16c)
+              ("[^\\+<>]\\(\\+\\)[^\\+<>]"   #Xe16d)
+              ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
+
+  (defun add-fira-code-symbol-keywords ()
+    "Add fira code ligatures."
+    (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
+
+  (add-hook 'prog-mode-hook
+            #'add-fira-code-symbol-keywords)
+#+end_src
+
+** Disable some window feature I don't use
+#+begin_src emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+end_src
+** Display line numbers on prog-modes
+I don't really like it, but I'll keep this in case of.
+#+begin_src emacs-lisp
+  ;; (add-hook 'prog-mode-hook 'linum-mode)
+#+end_src
+
+* Misc
+** Visit this file
+#+begin_src emacs-lisp
+  (defun visit-emacs-config ()
+    (interactive)
+    (find-file "~/.emacs.d/configuration.org"))
+  (global-set-key (kbd "C-c e") 'visit-emacs-config)
+#+end_src
+** Use SMEX
+#+begin_src emacs-lisp
+  (use-package smex
+    :ensure t
+    :bind ("M-x" . smex)
+    )
+#+end_src
+** CL depreciation
+#+begin_src emacs-lisp
+  (setq byte-compile-warnings '(cl-functions))
+#+end_src
+** Change backups directory
+#+begin_src emacs-lisp
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+#+end_src
+** Window go back
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1)))
+#+end_src
+
+* Project Development
+** Projectile
+#+begin_src emacs-lisp
+  (use-package projectile
+    :ensure t
+    :bind-keymap ("C-c p" . projectile-command-map)
+    :config (projectile-mode +1)
+    )
+#+end_src
+** Flycheck (disabled until I fix elixir setup)
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :ensure t
+    ;; :hook (after-init-hook . global-flycheck-mode)
+    )
+#+end_src
+** Tabs configuration
+*** Spaces instead of tabs
+#+begin_src emacs-lisp
+  (setq indent-tabs-mode nil)
+#+end_src
+** Magit
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind ("C-c g" . magit-status)
+    :config  (setq magit-completing-read-function 'magit-ido-completing-read))
+#+end_src
+
+* Productivity
+** Ido
+#+begin_src emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :config
+    (ido-vertical-mode 1)
+    (setq ido-vertical-define-keys 'C-n-and-C-p-only))
+  (use-package ido-completing-read+
+    :ensure t
+    :config (ido-ubiquitous-mode 1))
+  (use-package ido-yes-or-no
+    :ensure t
+    :config (ido-yes-or-no-mode 1))
+  (use-package flx-ido
+    :ensure t
+    :config
+    (ido-mode 1)
+    (ido-everywhere 1)
+    (flx-ido-mode 1)
+    (setq ido-enable-flex-matching t)
+    (setq ido-use-faces nil))
+#+end_src
+** FZF
+#+begin_src emacs-lisp
+  (use-package fzf
+    :bind
+    ("C-c f". fzf)
+    ("C-c C-f". fzf))
+#+end_src
+** Ripgrep
+#+begin_src emacs-lisp
+  (use-package deadgrep :ensure t)
+#+end_src
+** Comments
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-C c") 'comment-or-uncomment-region)
+  (defadvice comment-or-uncomment-region (before slick-comment activate compile)
+    "When called interactively with no active region, comment a single line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+#+end_src
+** Bury a buffer
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x j") 'bury-buffer)
+#+end_src
+** Undo tree
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :config
+    (global-undo-tree-mode)
+    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
+#+end_src
+
+* Programming
+** Elixir
+*** Elixir Mode
+#+begin_src emacs-lisp
+  (use-package elixir-mode
+    :ensure t
+    :config
+    (add-hook 'elixir-mode-hook 'my-elixir-config)
+    (defun my-elixir-config ()
+      "For use in `elixir-mode-hook'."
+      (local-set-key (kbd "C-c C-p") (lambda () (interactive) (insert "|>")))
+      (local-set-key (kbd "C-c i") (lambda () (interactive) (insert "|> IO.inspect()")))
+
+      (local-set-key (kbd "C-c , v") 'exunit-verify)
+      (local-set-key (kbd "C-c , a") 'exunit-verify-all)
+      (local-set-key (kbd "C-c , s") 'exunit-verify-single)
+      (local-set-key (kbd "C-c , r") 'exunit-rerun)))
+#+end_src
+*** Flycheck
+#+begin_src emacs-lisp
+  (use-package flycheck-elixir
+    :ensure t
+    :config
+    :hook (elixir-mode-hook . flycheck-mode))
+#+end_src
