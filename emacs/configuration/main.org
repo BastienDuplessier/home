@@ -236,6 +236,11 @@ I don't really like it, but I'll keep this in case of.
 #+begin_src emacs-lisp
   (setq indent-tabs-mode nil)
 #+end_src
+*** Tab size
+#+begin_src emacs-lisp
+  (setq default-tab-width 2)
+#+end_src
+
 ** Magit
 #+begin_src emacs-lisp
   (use-package magit
